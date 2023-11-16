@@ -1,0 +1,23 @@
+library(testthat)
+
+test_that("Workspace'teki t??m de??i??kenleri silme", {
+  rm(list = ls())
+  expect_equal(length(ls()), 0)
+})
+
+test_that("E??er mevcut ise veri setini silme", {
+  if ("MapsThatChangedOurWorld_StoryMap_Data.csv" %in% list.files()) {
+    file.remove("MapsThatChangedOurWorld_StoryMap_Data.csv")
+  }
+  expect_equal("MapsThatChangedOurWorld_StoryMap_Data.csv" %in% list.files(), FALSE)
+})
+
+current_dir <- getwd()
+relative_path <- file.path(current_dir,"Labex1_Q1_210401072_mehmetemin_tok.R")
+source(relative_path)
+
+test_that("Test : MapsThatChangedOurWorld_StoryMap_Data.csv adl?? dosya belirtilen dizinde mevcuttur.", {
+  file_path <- file.path(current_dir,"MapsThatChangedOurWorld_StoryMap_Data.csv")
+  expect_true(file.exists(file_path), info = "Dosya mevcut de??il.")
+})
+
